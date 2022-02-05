@@ -66,5 +66,11 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>1.6.10</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.14.1</version>
+        </dependency>
     </dependencies>
 </project>
