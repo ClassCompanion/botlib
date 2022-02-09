@@ -9,7 +9,7 @@ import org.classcompanion.botlib.rabbitmq.RabbitmqManager
 class ServerLib(baseUrl: String) {
 	private val serverQueueName = "server"
 	private val botQueueName = "bot"
-	var factory: ConnectionFactory = RabbitmqManager.createFactory("test", "tset", "/", baseUrl, 5672)
+	var factory: ConnectionFactory = RabbitmqManager.createFactory("server", "tset", "/", baseUrl, 5672)
 	private var connection: Connection? = RabbitmqManager.makeConnection(factory)
 	private var channel: Channel? = connection?.let { RabbitmqManager.createChannel(it) }
 	init {

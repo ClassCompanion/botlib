@@ -13,6 +13,7 @@
     <bytecodeTargetLevel>
       <module name="consoleApp" target="1.5" />
       <module name="consoleApp (1)" target="1.5" />
+      <module name="consoleApp (2)" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
