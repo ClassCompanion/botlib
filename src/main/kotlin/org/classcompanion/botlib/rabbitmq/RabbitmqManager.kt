@@ -41,6 +41,5 @@ class RabbitmqManager {
 			}
 			channel.basicConsume(queueName, true, deliverCallback) { consumerTag: String? -> }
 		}
-
 	}
 }

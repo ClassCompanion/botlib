@@ -6,24 +6,34 @@ import org.classcompanion.botlib.rabbitmq.OnConsume
 import org.classcompanion.botlib.rabbitmq.RabbitmqManager
 
 
-class BotLib(baseUrl: String, guildId: String) {
-	private val serverQueueName = "server"
-	private val botQueueName = "bot"
-	private var factory: ConnectionFactory = RabbitmqManager.createFactory("test", "tset", "/", baseUrl, 5672)
+class BotLib(baseUrl: String, guildId: String, username: String, password: String, vhost: String) {
+	private val serverAssesmentsQueue = "s:assesments"
+	private val botMessageIdQueue = "b:messageid"
+	private val botDefaultChannelQueue = "b:defaultchannel"
+
+	private var factory: ConnectionFactory = RabbitmqManager.createFactory(username, password, vhost, baseUrl, 5672)
 	private var connection: Connection? = RabbitmqManager.makeConnection(factory)
 	private var channel: Channel? = connection?.let { RabbitmqManager.createChannel(it) }
+
 	init {
-		RabbitmqManager.declareQueue(channel!!, serverQueueName)
-		RabbitmqManager.declareQueue(channel!!, botQueueName)
+		// declare queues
+		RabbitmqManager.declareQueue(channel!!, serverAssesmentsQueue)
+		RabbitmqManager.declareQueue(channel!!, botMessageIdQueue)
+		RabbitmqManager.declareQueue(channel!!, botDefaultChannelQueue)
 	}
 
-	fun sendMessage(msg: String) {
-		RabbitmqManager.basicPublish(channel!!, botQueueName, msg)
-		println("[x] Sent '$msg'")
+	fun sendMessageId(messageId: Long, queueId: String) {
+		val msg = """{"messageType": "newQuestioningMessage", "messageId": "$messageId", "questioningName": "$queueId"}"""
+		RabbitmqManager.basicPublish(channel!!, botMessageIdQueue, msg)
 	}
 
-	fun setConsume(consume: OnConsume = DefaultConsume()) {
-		RabbitmqManager.setBasicConsume(channel!!, serverQueueName, consume)
+	fun sendDefaultMessage(mchannel: String) {
+		val msg = """{"newDefaultChannel": "$mchannel"}"""
+		RabbitmqManager.basicPublish(channel!!, botMessageIdQueue, msg)
+	}
+
+	fun setAssesmentsConsume(consume: OnConsume = DefaultConsume()) {
+		RabbitmqManager.setBasicConsume(channel!!, serverAssesmentsQueue, consume)
 	}
 
 	fun closeConnection() {
