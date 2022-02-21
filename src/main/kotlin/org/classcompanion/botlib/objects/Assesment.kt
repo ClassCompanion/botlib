@@ -1,9 +1,9 @@
 package org.classcompanion.botlib.objects
 
 data class Assesment(
-	val assesmentName: String,
-	val dates: HashMap<String, Array<Long>>,
+	val id: Int,
+	val title: String,
+	val perDay: Int,
 	val messageId: String,
-	val channel: String,
-	val uuid: String
+	val terms: List<Term>
 	)
