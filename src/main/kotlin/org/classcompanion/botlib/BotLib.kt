@@ -7,7 +7,7 @@ import org.classcompanion.botlib.rabbitmq.RabbitmqManager
 
 
 class BotLib(baseUrl: String, guildId: String, username: String, password: String, vhost: String) {
-	private val serverAssesmentsQueue = "s:assesments"
+	private val serverAssesmentsQueue = "s:assessments"
 	private val botMessageIdQueue = "b:messageid"
 	// private val botDefaultChannelQueue = "b:defaultchannel"
 
@@ -27,10 +27,10 @@ class BotLib(baseUrl: String, guildId: String, username: String, password: Strin
 		RabbitmqManager.basicPublish(channel!!, botMessageIdQueue, msg)
 	}
 
-	/*fun sendDefaultMessage(mchannel: String) {
+	fun sendDefaultMessage(mchannel: String) {
 		val msg = """{"newDefaultChannel": "$mchannel"}"""
 		RabbitmqManager.basicPublish(channel!!, botMessageIdQueue, msg)
-	}*/
+	}
 
 	fun setAssesmentsConsume(consume: OnConsume = DefaultConsume()) {
 		RabbitmqManager.setBasicConsume(channel!!, serverAssesmentsQueue, consume)
