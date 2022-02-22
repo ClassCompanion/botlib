@@ -7,10 +7,10 @@ data class Assessment(
 	val id: Int,
 	@JsonProperty("title")
 	val title: String,
-	@JsonProperty("perDay")
-	val perDay: Int,
-	@JsonProperty("messageId")
-	val messageId: String,
+	@JsonProperty("per_day")
+	val per_day: Int,
+	@JsonProperty("message_id")
+	val message_id: String?,
 	@JsonProperty("terms")
 	val terms: List<Term>
 	)
